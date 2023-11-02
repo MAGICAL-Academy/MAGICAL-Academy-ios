@@ -16,34 +16,39 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
-    }
+   
 
+        @State private var selectedScenario: String?
+        let scenarios = ["Farm", "Zoo", "Beach", "Playground", "Forest", "Castle", "SpaceStation"]  // Assume these are the names of your image assets as well
+
+        var body: some View {
+            NavigationView {
+                VStack {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                            ForEach(scenarios, id: \.self) { scenario in
+                                Button(action: {
+                                    self.selectedScenario = scenario
+                                }) {
+                                    VStack {
+                                        Image(scenario)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                        Text(scenario)
+                                    }
+                                    .padding()
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                Text("Select an item")
+            }
+        }
+
+  
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
