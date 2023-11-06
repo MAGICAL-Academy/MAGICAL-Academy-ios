@@ -18,7 +18,12 @@ struct GenerateImageView: View {
         self.selectedAttire = selectedAttire
         
         // Initialize the OpenAIKit with API Key
-        self.openAI = OpenAIKit(apiToken: "")
+        var apiKey: String = ""
+        if let receivedData = KeychainManager.load(key: "OPENAI_API_KEY") {
+            let retrievedAPIKey = String(data: receivedData, encoding: .utf8)
+            apiKey =  (retrievedAPIKey ?? "")
+        }
+        self.openAI = OpenAIKit(apiToken: apiKey)
     }
 
     var body: some View {
@@ -30,7 +35,7 @@ struct GenerateImageView: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Text("Tap below to generate image")
+                Text("There was a problem loading the image")
             }
         }
         .onAppear(perform: generateImage)
