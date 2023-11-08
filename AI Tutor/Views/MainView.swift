@@ -36,27 +36,73 @@ struct MainView: View {
 }
 
 
+
 struct ScenarioSelectionView: View {
     @Binding var selectedScenario: String?
     var completion: () -> Void
 
     let scenarios = ["Farm", "Zoo", "Beach", "Playground", "Forest", "Castle", "SpaceStation"]
 
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     var body: some View {
-        VStack {
-            // Your Scenario Selection UI
-            ForEach(scenarios, id: \.self) { scenario in
-                Button(action: {
-                    self.selectedScenario = scenario
-                    self.completion()
-                }) {
-                    // Your Scenario Button UI
-                    Text(scenario)
+        Group {
+            if horizontalSizeClass == .compact {
+                // Vertical scrolling for portrait orientation
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.flexible())], spacing: 20) {
+                        scenarioButtons
+                    }
+                }
+            } else {
+                // Horizontal scrolling for landscape orientation
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: 20) {
+                        scenarioButtons
+                    }
                 }
             }
         }
     }
+
+    var scenarioButtons: some View {
+        ForEach(scenarios, id: \.self) { scenario in
+            scenarioButton(scenario)
+        }
+    }
+
+    @ViewBuilder
+    func scenarioButton(_ scenario: String) -> some View {
+        Button(action: {
+            self.selectedScenario = scenario
+            self.completion()
+        }) {
+            GeometryReader { geometry in
+                ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                    Image(scenario)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .clipped()
+
+                    Text(scenario)
+                        .foregroundColor(.white)
+                        .padding(5)
+                        .frame(width: geometry.size.width * 0.3)
+                        .background(Color.black.opacity(0.5))
+                        .cornerRadius(5)
+                        .padding(.bottom, 10)
+                }
+            }
+            .frame(height: UIDevice.current.userInterfaceIdiom == .pad ? 200 : UIScreen.main.bounds.width)
+        }
+        .cornerRadius(8)
+        .shadow(radius: 3)
+    }
 }
+
+
+
 
 struct CharacterSelectionView: View {
     @Binding var selectedCharacter: String?

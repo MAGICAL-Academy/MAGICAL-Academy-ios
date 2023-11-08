@@ -11,14 +11,14 @@ struct GenerateImageView: View {
     var selectedPlace: String
     var selectedCharacter: String
     var selectedAttire: String
-
+    var apiKey: String = ""
     init(selectedPlace: String, selectedCharacter: String, selectedAttire: String) {
         self.selectedPlace = selectedPlace
         self.selectedCharacter = selectedCharacter
         self.selectedAttire = selectedAttire
         
         // Initialize the OpenAIKit with API Key
-        var apiKey: String = ""
+        
         if let receivedData = KeychainManager.load(key: "OPENAI_API_KEY") {
             let retrievedAPIKey = String(data: receivedData, encoding: .utf8)
             apiKey =  (retrievedAPIKey ?? "")
@@ -35,7 +35,7 @@ struct GenerateImageView: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Text("There was a problem loading the image")
+                Text("your key is " + apiKey)
             }
         }
         .onAppear(perform: generateImage)
