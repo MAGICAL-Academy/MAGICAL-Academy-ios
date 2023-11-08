@@ -16,10 +16,15 @@ struct ScenarioSelectionView: View {
     @Binding var selectedScenario: String?
     var completion: () -> Void
     
-    let scenarios = ["Farm", "Zoo", "Beach", "Playground", "Forest", "Castle", "SpaceStation"]
     let scenarios = [
         Scenario(displayName: "Farm", imageName: "Farm"),
-        // ... other scenarios
+        Scenario(displayName: "Zoo", imageName: "Zoo"),
+        Scenario(displayName: "Beach", imageName: "Beach"),
+        Scenario(displayName: "Playground", imageName: "Playground"),
+        Scenario(displayName: "Forest", imageName: "Forest"),
+        Scenario(displayName: "Castle", imageName: "Castle"),
+        Scenario(displayName: "SpaceStation", imageName: "SpaceStation"),
+       
     ]
 
     var body: some View {
@@ -39,7 +44,7 @@ struct ScenarioView: View {
             self.selectedScenario = scenario.displayName
             self.completion()
         }) {
-            ZStack {
+            ZStack(alignment: .bottom) {
                 Image(scenario.imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -51,16 +56,11 @@ struct ScenarioView: View {
     }
 }
 
-struct TextOverlayView: View {
-    var text: String
 
-    var body: some View {
-        Text(text)
-            .foregroundColor(.white)
-            .padding(5)
-            .background(Color.black.opacity(0.5))
-            .cornerRadius(5)
-            .padding(.bottom, 10)
+// Preview for SwiftUI Canvas
+struct ScenarioSelectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Provide a constant value for the binding and a dummy completion closure
+        ScenarioSelectionView(selectedScenario: .constant(nil), completion: {})
     }
 }
-
