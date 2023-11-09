@@ -1,6 +1,6 @@
 //
-//  AI_TutorApp.swift
-//  AI Tutor
+//  MAGICAL_AcademyApp.swift
+//  MAGICAL Academy
 //
 //  Created by arash parnia on 11/2/23.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct AI_TutorApp: App {
+struct MAGICAL_Academy: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {

@@ -1,6 +1,6 @@
 //
 //  ScrollableGridView.swift
-//  AI Tutor
+//  MAGICAL Academy
 //
 //  Created by arash parnia on 11/6/23.
 //

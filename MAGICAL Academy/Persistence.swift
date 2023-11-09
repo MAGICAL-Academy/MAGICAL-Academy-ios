@@ -1,6 +1,6 @@
 //
 //  Persistence.swift
-//  AI Tutor
+//  MAGICAL Academy
 //
 //  Created by arash parnia on 11/2/23.
 //
@@ -31,7 +31,7 @@ struct PersistenceController {
     let container: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "AI_Tutor")
+        container = NSPersistentCloudKitContainer(name: "MAGICAL_Academy")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
