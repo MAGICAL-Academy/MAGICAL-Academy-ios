@@ -1,0 +1,101 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+Pods/
+
+# Carthage
+Carthage/Build
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo.
+# Instead, use fastlane to re-generate the screenshots whenever they are needed.
+# For more information about fastlane, check out https://fastlane.tools
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Code Injection
+#
+# After new code injection tools there's a generated folder /iOSInjectionProject
+# which contains some code injection configurations.
+iOSInjectionProject/
+
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+# Package.resolved
+# Package.pins
+.swiftbuild
+.build
+
+# Yarn
+#
+# If you use Yarn's "Workspaces" feature, you may want to ignore the workspace symlinked folders like so:
+# .yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Secrets
+#
+# Avoid committing secret keys or your Secrets.plist
+**/Secrets.plist
+*.keys
+.env
+
+# Xcode previews
+#
+# If you use SwiftUI and have the new preview feature enabled, you may want to ignore the previews.
+# They can generate a LOT of data which you might not want to commit to git.
+DerivedData/*/Previews
+
+# Icon must end with two \ escapes
+Icon\r\r
+
+# Thumbnails
+._*
+
+# Files that might appear on disk
+.DS_Store
+.Trashes
+.Spotlight-V100
