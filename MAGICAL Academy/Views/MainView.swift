@@ -4,7 +4,6 @@ struct MainView: View {
     @State private var selectedStage = 0
     @State private var selectedScenario: String?
     @State private var selectedCharacter: String?
-    @State private var selectedAttire: String?
 
     var body: some View {
         VStack {
@@ -21,8 +20,8 @@ struct MainView: View {
                 .transition(.scale)
             case 2:
                 // Now showing StoryGenerationView instead of GeneratedImageView
-                if let scenario = selectedScenario, let character = selectedCharacter, let attire = selectedAttire {
-                    StoryGenerationView(selectedScenario: scenario, selectedCharacter: character, selectedAttire: attire)
+                if let scenario = selectedScenario, let character = selectedCharacter {
+                    StoryGenerationView(selectedScenario: scenario, selectedCharacter: character)
                 } else {
                     // Handle the case where scenario, character, or attire is not selected
                     Text("Please go back and make all selections.")

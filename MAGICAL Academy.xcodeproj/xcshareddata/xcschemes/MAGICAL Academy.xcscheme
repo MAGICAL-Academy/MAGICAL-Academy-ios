@@ -28,30 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C1ADCB182AF3E9BA006C79A8"
-               BuildableName = "MAGICAL AcademyTests.xctest"
-               BlueprintName = "MAGICAL AcademyTests"
-               ReferencedContainer = "container:MAGICAL Academy.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C1ADCB222AF3E9BA006C79A8"
-               BuildableName = "MAGICAL AcademyUITests.xctest"
-               BlueprintName = "MAGICAL AcademyUITests"
-               ReferencedContainer = "container:MAGICAL Academy.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -73,6 +49,13 @@
             ReferencedContainer = "container:MAGICAL Academy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "CHAT_GPT_API_KEY"
+            value = "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"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

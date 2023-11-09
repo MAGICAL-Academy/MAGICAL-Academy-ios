@@ -4,7 +4,6 @@ struct StoryGenerationView: View {
     // Properties to hold the incoming arguments
     var selectedScenario: String
     var selectedCharacter: String
-    var selectedAttire: String
     
     @State private var storyPrompt: String = ""
     @State private var userAnswer: String = ""
@@ -17,7 +16,7 @@ struct StoryGenerationView: View {
     // Initialize the ExerciseGenerator with the API key
     private var exerciseGenerator: ExerciseGenerator
     
-    init(selectedScenario: String, selectedCharacter: String, selectedAttire: String) {
+    init(selectedScenario: String, selectedCharacter: String) {
         // Initialize all the @State properties first
         self.storyPrompt = ""
         self.userAnswer = ""
@@ -28,10 +27,10 @@ struct StoryGenerationView: View {
         // Now, all properties of `self` are initialized, so we can use `self`
         self.selectedScenario = selectedScenario
         self.selectedCharacter = selectedCharacter
-        self.selectedAttire = selectedAttire
+    
 
         // Since all properties are initialized, you can now initialize exerciseGenerator
-        self.exerciseGenerator = ExerciseGenerator(apiKey: "your-api-key", difficulty: 1, age: 4)
+        self.exerciseGenerator = ExerciseGenerator(difficulty: 1, age: 4)
     }
 
     
@@ -120,6 +119,6 @@ struct StoryGenerationView: View {
 // Preview for SwiftUI Canvas
 struct StoryGenerationView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryGenerationView(selectedScenario: "Park", selectedCharacter: "Wizard", selectedAttire: "Cape")
+        StoryGenerationView(selectedScenario: "Park", selectedCharacter: "Wizard")
     }
 }

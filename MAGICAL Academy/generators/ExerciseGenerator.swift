@@ -8,25 +8,30 @@ class ExerciseGenerator {
     private var startTime: Date?
     private var endTime: Date?
     
-    init(apiKey: String, difficulty: Int = 1, age: Int = 4) {
-        self.chatGPTService = ChatGPTService(apiKey: apiKey)
+    init( difficulty: Int = 1, age: Int = 4) {
+        self.chatGPTService = ChatGPTService()
         self.difficulty = difficulty
         self.age = age
     }
     
     func generateExercise(completion: @escaping (String) -> Void) {
-        let prompt = """
-        You are a friendly math tutor specializing in teaching young children,
-        specifically \(self.age)-year-olds, the basics of arithmetic in a fun and engaging way.
-        Your goal is to create a simple and enjoyable arithmetic exercise
-        that helps a \(self.age)-year-old understand age appropriate arithmetic.
-        The exercise should involve arithmetic of two small numbers,
-        and it should be framed in a playful scenario that would appeal to a young child's imagination.
-        The problem will vary in difficulty but even the highest difficulty should be appropriate for a small child.
-        Please set the difficulty to \(self.difficulty). Only reply with the problem itself and nothing else.
-        """
+        let messages = [
+            [
+                "role": "system",
+                "content": """
+                    You are a friendly math tutor specializing in teaching young children,
+                    specifically \(self.age)-year-olds, the basics of arithmetic in a fun and engaging way.
+                    Your goal is to create a simple and enjoyable arithmetic exercise
+                    that helps a \(self.age)-year-old understand age-appropriate arithmetic.
+                    The exercise should involve arithmetic of two small numbers,
+                    and it should be framed in a playful scenario that would appeal to a young child's imagination.
+                    The problem will vary in difficulty but even the highest difficulty should be appropriate for a small child.
+                    Please set the difficulty to \(self.difficulty). Only reply with the problem itself and nothing else.
+                    """
+            ]
+        ]
         
-        chatGPTService.fetchResponse(for: prompt) { result in
+        chatGPTService.fetchResponse(for: messages) { result in
             switch result {
             case .success(let problem):
                 completion(problem)
@@ -35,6 +40,7 @@ class ExerciseGenerator {
             }
         }
     }
+
     
     func startTimer() {
         startTime = Date()
@@ -67,30 +73,34 @@ class ExerciseGenerator {
     }
     
     func adjustDifficulty(correctness: Bool, timeTaken: TimeInterval) {
-        let prompt = """
-        Adjust difficulty based on correctness: \(correctness) and time taken: \(timeTaken).
-        Current difficulty: \(self.difficulty).
-        If the time is less than one minute that means we can move on to a higher difficulty \(self.difficulty + 1).
-        If the time is really long even if the answer is correct we should stay with current difficulty.
-        If the time is really long and the answer is wrong then we should go back one level of difficulty.
-        """
-        
-        chatGPTService.fetchResponse(for: prompt) { result in
-            switch result {
-            case .success(let response):
-                if let newDifficulty = self.extractNumber(from: response) {
-                    self.difficulty = newDifficulty
-                }
-            case .failure(let error):
-                print("Failed to adjust difficulty: \(error)")
-            }
+        // Define your thresholds for time taken
+        let quickResponseTime = 60.0 // 1 minute
+        let longResponseTime = 180.0 // 3 minutes
+
+        if correctness && timeTaken < quickResponseTime {
+            // If the answer is correct and the time taken is less than 1 minute, increase difficulty.
+            difficulty += 1
+        } else if !correctness || timeTaken > longResponseTime {
+            // If the answer is incorrect, or the time taken is too long, decrease difficulty.
+            difficulty = max(difficulty - 1, 1) // Ensure the difficulty doesn't go below 1.
         }
+        // If the answer is correct and the time taken is reasonable, no change in difficulty.
     }
+
     
     func getSolution(for problem: String, completion: @escaping (Int?) -> Void) {
-        let prompt = "Return only the numerical solution for the problem: \(problem)"
+        let messages = [
+            [
+                "role": "system",
+                "content": "Return only the numerical solution for the problem."
+            ],
+            [
+                "role": "user",
+                "content": "\(problem)"
+            ]
+        ]
         
-        chatGPTService.fetchResponse(for: prompt) { result in
+        chatGPTService.fetchResponse(for: messages) { result in
             switch result {
             case .success(let solutionText):
                 let solution = self.extractNumber(from: solutionText)
@@ -101,4 +111,5 @@ class ExerciseGenerator {
             }
         }
     }
+
 }
