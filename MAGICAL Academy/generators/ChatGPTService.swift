@@ -8,13 +8,23 @@
 import Foundation
 
 struct ChatGPTService {
-    let apiKey: String
-    let session: URLSession
+    private let apiKey: String
+    private let session: URLSession
 
-    init(apiKey: String, session: URLSession = .shared) {
-        self.apiKey = apiKey
+    init(session: URLSession = .shared) {
+        self.apiKey = ChatGPTService.fetchAPIKey()
         self.session = session
     }
+
+    private static func fetchAPIKey() -> String {
+        // Implement a secure way to retrieve the API key. This is just an example.
+        // You might want to retrieve it from the environment variables or a secure store.
+        guard let apiKey = ProcessInfo.processInfo.environment["CHAT_GPT_API_KEY"] else {
+            fatalError("API Key not found")
+        }
+        return apiKey
+    }
+
 
     func fetchResponse(for prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
         guard let url = URL(string: "https://api.openai.com/v1/engines/davinci-codex/completions") else {

@@ -18,9 +18,9 @@
 		C19B58BA2AFB1FC400FFF0FA /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B58A92AFB1FC400FFF0FA /* ChatGPTService.swift */; };
 		C19B58BB2AFB1FC400FFF0FA /* ExerciseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B58AA2AFB1FC400FFF0FA /* ExerciseGenerator.swift */; };
 		C19B58BD2AFBD1F000FFF0FA /* StoryGenerationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B58BC2AFBD1F000FFF0FA /* StoryGenerationView.swift */; };
-		C1ADCB062AF3E9B8006C79A8 /* AI_TutorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB052AF3E9B8006C79A8 /* AI_TutorApp.swift */; };
+		C1ADCB062AF3E9B8006C79A8 /* MAGICAL_AcademyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB052AF3E9B8006C79A8 /* MAGICAL_AcademyApp.swift */; };
 		C1ADCB082AF3E9B8006C79A8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB072AF3E9B8006C79A8 /* Persistence.swift */; };
-		C1ADCB0B2AF3E9B8006C79A8 /* AI_Tutor.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB092AF3E9B8006C79A8 /* AI_Tutor.xcdatamodeld */; };
+		C1ADCB0B2AF3E9B8006C79A8 /* MAGICAL Academy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB092AF3E9B8006C79A8 /* MAGICAL Academy.xcdatamodeld */; };
 		C1ADCB0F2AF3E9BA006C79A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1ADCB0E2AF3E9BA006C79A8 /* Assets.xcassets */; };
 		C1ADCB132AF3E9BA006C79A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1ADCB122AF3E9BA006C79A8 /* Preview Assets.xcassets */; };
 		C1ADCB1E2AF3E9BA006C79A8 /* AI_TutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB1D2AF3E9BA006C79A8 /* AI_TutorTests.swift */; };
@@ -59,17 +59,17 @@
 		C19B58A92AFB1FC400FFF0FA /* ChatGPTService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 		C19B58AA2AFB1FC400FFF0FA /* ExerciseGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseGenerator.swift; sourceTree = "<group>"; };
 		C19B58BC2AFBD1F000FFF0FA /* StoryGenerationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryGenerationView.swift; sourceTree = "<group>"; };
-		C1ADCB022AF3E9B8006C79A8 /* AI Tutor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI Tutor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1ADCB052AF3E9B8006C79A8 /* AI_TutorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI_TutorApp.swift; sourceTree = "<group>"; };
+		C1ADCB022AF3E9B8006C79A8 /* MAGICAL Academy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MAGICAL Academy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1ADCB052AF3E9B8006C79A8 /* MAGICAL_AcademyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAGICAL_AcademyApp.swift; sourceTree = "<group>"; };
 		C1ADCB072AF3E9B8006C79A8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C1ADCB0A2AF3E9B8006C79A8 /* AI_Tutor.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AI_Tutor.xcdatamodel; sourceTree = "<group>"; };
 		C1ADCB0E2AF3E9BA006C79A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C1ADCB102AF3E9BA006C79A8 /* AI_Tutor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AI_Tutor.entitlements; sourceTree = "<group>"; };
+		C1ADCB102AF3E9BA006C79A8 /* MAGICAL Academy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MAGICAL Academy.entitlements"; sourceTree = "<group>"; };
 		C1ADCB122AF3E9BA006C79A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C1ADCB142AF3E9BA006C79A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C1ADCB192AF3E9BA006C79A8 /* AI TutorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AI TutorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1ADCB192AF3E9BA006C79A8 /* MAGICAL AcademyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MAGICAL AcademyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1ADCB1D2AF3E9BA006C79A8 /* AI_TutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI_TutorTests.swift; sourceTree = "<group>"; };
-		C1ADCB232AF3E9BA006C79A8 /* AI TutorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AI TutorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1ADCB232AF3E9BA006C79A8 /* MAGICAL AcademyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MAGICAL AcademyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1ADCB272AF3E9BA006C79A8 /* AI_TutorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI_TutorUITests.swift; sourceTree = "<group>"; };
 		C1ADCB292AF3E9BA006C79A8 /* AI_TutorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI_TutorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C1FFD3912AF88A8A0020C3AB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
@@ -129,9 +129,9 @@
 		C1ADCAF92AF3E9B8006C79A8 = {
 			isa = PBXGroup;
 			children = (
-				C1ADCB042AF3E9B8006C79A8 /* AI Tutor */,
-				C1ADCB1C2AF3E9BA006C79A8 /* AI TutorTests */,
-				C1ADCB262AF3E9BA006C79A8 /* AI TutorUITests */,
+				C1ADCB042AF3E9B8006C79A8 /* MAGICAL Academy */,
+				C1ADCB1C2AF3E9BA006C79A8 /* MAGICAL AcademyTests */,
+				C1ADCB262AF3E9BA006C79A8 /* MAGICAL AcademyUITests */,
 				C1ADCB032AF3E9B8006C79A8 /* Products */,
 				C1FFD38E2AF884700020C3AB /* Frameworks */,
 			);
@@ -140,28 +140,28 @@
 		C1ADCB032AF3E9B8006C79A8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C1ADCB022AF3E9B8006C79A8 /* AI Tutor.app */,
-				C1ADCB192AF3E9BA006C79A8 /* AI TutorTests.xctest */,
-				C1ADCB232AF3E9BA006C79A8 /* AI TutorUITests.xctest */,
+				C1ADCB022AF3E9B8006C79A8 /* MAGICAL Academy.app */,
+				C1ADCB192AF3E9BA006C79A8 /* MAGICAL AcademyTests.xctest */,
+				C1ADCB232AF3E9BA006C79A8 /* MAGICAL AcademyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C1ADCB042AF3E9B8006C79A8 /* AI Tutor */ = {
+		C1ADCB042AF3E9B8006C79A8 /* MAGICAL Academy */ = {
 			isa = PBXGroup;
 			children = (
 				C19B58A82AFB1FC400FFF0FA /* generators */,
 				C19B58952AFB1FC400FFF0FA /* Views */,
-				C1ADCB052AF3E9B8006C79A8 /* AI_TutorApp.swift */,
+				C1ADCB052AF3E9B8006C79A8 /* MAGICAL_AcademyApp.swift */,
 				C1ADCB072AF3E9B8006C79A8 /* Persistence.swift */,
 				C1ADCB0E2AF3E9BA006C79A8 /* Assets.xcassets */,
-				C1ADCB102AF3E9BA006C79A8 /* AI_Tutor.entitlements */,
+				C1ADCB102AF3E9BA006C79A8 /* MAGICAL Academy.entitlements */,
 				C1ADCB142AF3E9BA006C79A8 /* Info.plist */,
-				C1ADCB092AF3E9B8006C79A8 /* AI_Tutor.xcdatamodeld */,
+				C1ADCB092AF3E9B8006C79A8 /* MAGICAL Academy.xcdatamodeld */,
 				C1ADCB112AF3E9BA006C79A8 /* Preview Content */,
 				C13C6C122AF87899003C9DF4 /* KeychainManager.swift */,
 			);
-			path = "AI Tutor";
+			path = "MAGICAL Academy";
 			sourceTree = "<group>";
 		};
 		C1ADCB112AF3E9BA006C79A8 /* Preview Content */ = {
@@ -172,21 +172,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		C1ADCB1C2AF3E9BA006C79A8 /* AI TutorTests */ = {
+		C1ADCB1C2AF3E9BA006C79A8 /* MAGICAL AcademyTests */ = {
 			isa = PBXGroup;
 			children = (
 				C1ADCB1D2AF3E9BA006C79A8 /* AI_TutorTests.swift */,
 			);
-			path = "AI TutorTests";
+			path = "MAGICAL AcademyTests";
 			sourceTree = "<group>";
 		};
-		C1ADCB262AF3E9BA006C79A8 /* AI TutorUITests */ = {
+		C1ADCB262AF3E9BA006C79A8 /* MAGICAL AcademyUITests */ = {
 			isa = PBXGroup;
 			children = (
 				C1ADCB272AF3E9BA006C79A8 /* AI_TutorUITests.swift */,
 				C1ADCB292AF3E9BA006C79A8 /* AI_TutorUITestsLaunchTests.swift */,
 			);
-			path = "AI TutorUITests";
+			path = "MAGICAL AcademyUITests";
 			sourceTree = "<group>";
 		};
 		C1FFD38E2AF884700020C3AB /* Frameworks */ = {
@@ -200,9 +200,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C1ADCB012AF3E9B8006C79A8 /* AI Tutor */ = {
+		C1ADCB012AF3E9B8006C79A8 /* MAGICAL Academy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1ADCB2D2AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "AI Tutor" */;
+			buildConfigurationList = C1ADCB2D2AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "MAGICAL Academy" */;
 			buildPhases = (
 				C1ADCAFE2AF3E9B8006C79A8 /* Sources */,
 				C1ADCAFF2AF3E9B8006C79A8 /* Frameworks */,
@@ -212,17 +212,17 @@
 			);
 			dependencies = (
 			);
-			name = "AI Tutor";
+			name = "MAGICAL Academy";
 			packageProductDependencies = (
 				C1FFD38A2AF87ED00020C3AB /* OpenAIKit */,
 			);
 			productName = "AI Tutor";
-			productReference = C1ADCB022AF3E9B8006C79A8 /* AI Tutor.app */;
+			productReference = C1ADCB022AF3E9B8006C79A8 /* MAGICAL Academy.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C1ADCB182AF3E9BA006C79A8 /* AI TutorTests */ = {
+		C1ADCB182AF3E9BA006C79A8 /* MAGICAL AcademyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1ADCB302AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "AI TutorTests" */;
+			buildConfigurationList = C1ADCB302AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "MAGICAL AcademyTests" */;
 			buildPhases = (
 				C1ADCB152AF3E9BA006C79A8 /* Sources */,
 				C1ADCB162AF3E9BA006C79A8 /* Frameworks */,
@@ -233,14 +233,14 @@
 			dependencies = (
 				C1ADCB1B2AF3E9BA006C79A8 /* PBXTargetDependency */,
 			);
-			name = "AI TutorTests";
+			name = "MAGICAL AcademyTests";
 			productName = "AI TutorTests";
-			productReference = C1ADCB192AF3E9BA006C79A8 /* AI TutorTests.xctest */;
+			productReference = C1ADCB192AF3E9BA006C79A8 /* MAGICAL AcademyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C1ADCB222AF3E9BA006C79A8 /* AI TutorUITests */ = {
+		C1ADCB222AF3E9BA006C79A8 /* MAGICAL AcademyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C1ADCB332AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "AI TutorUITests" */;
+			buildConfigurationList = C1ADCB332AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "MAGICAL AcademyUITests" */;
 			buildPhases = (
 				C1ADCB1F2AF3E9BA006C79A8 /* Sources */,
 				C1ADCB202AF3E9BA006C79A8 /* Frameworks */,
@@ -251,9 +251,9 @@
 			dependencies = (
 				C1ADCB252AF3E9BA006C79A8 /* PBXTargetDependency */,
 			);
-			name = "AI TutorUITests";
+			name = "MAGICAL AcademyUITests";
 			productName = "AI TutorUITests";
-			productReference = C1ADCB232AF3E9BA006C79A8 /* AI TutorUITests.xctest */;
+			productReference = C1ADCB232AF3E9BA006C79A8 /* MAGICAL AcademyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -279,7 +279,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C1ADCAFD2AF3E9B8006C79A8 /* Build configuration list for PBXProject "AI Tutor" */;
+			buildConfigurationList = C1ADCAFD2AF3E9B8006C79A8 /* Build configuration list for PBXProject "MAGICAL Academy" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -295,9 +295,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C1ADCB012AF3E9B8006C79A8 /* AI Tutor */,
-				C1ADCB182AF3E9BA006C79A8 /* AI TutorTests */,
-				C1ADCB222AF3E9BA006C79A8 /* AI TutorUITests */,
+				C1ADCB012AF3E9B8006C79A8 /* MAGICAL Academy */,
+				C1ADCB182AF3E9BA006C79A8 /* MAGICAL AcademyTests */,
+				C1ADCB222AF3E9BA006C79A8 /* MAGICAL AcademyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -333,7 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1ADCB062AF3E9B8006C79A8 /* AI_TutorApp.swift in Sources */,
+				C1ADCB062AF3E9B8006C79A8 /* MAGICAL_AcademyApp.swift in Sources */,
 				C13C6C132AF87899003C9DF4 /* KeychainManager.swift in Sources */,
 				C1ADCB082AF3E9B8006C79A8 /* Persistence.swift in Sources */,
 				C19B58BB2AFB1FC400FFF0FA /* ExerciseGenerator.swift in Sources */,
@@ -345,7 +345,7 @@
 				C19B58B32AFB1FC400FFF0FA /* ScenarioSelectionView.swift in Sources */,
 				C19B58B82AFB1FC400FFF0FA /* GenerateImageView.swift in Sources */,
 				C19B58BA2AFB1FC400FFF0FA /* ChatGPTService.swift in Sources */,
-				C1ADCB0B2AF3E9B8006C79A8 /* AI_Tutor.xcdatamodeld in Sources */,
+				C1ADCB0B2AF3E9B8006C79A8 /* MAGICAL Academy.xcdatamodeld in Sources */,
 				C19B58B72AFB1FC400FFF0FA /* OutlineTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,12 +372,12 @@
 /* Begin PBXTargetDependency section */
 		C1ADCB1B2AF3E9BA006C79A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1ADCB012AF3E9B8006C79A8 /* AI Tutor */;
+			target = C1ADCB012AF3E9B8006C79A8 /* MAGICAL Academy */;
 			targetProxy = C1ADCB1A2AF3E9BA006C79A8 /* PBXContainerItemProxy */;
 		};
 		C1ADCB252AF3E9BA006C79A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C1ADCB012AF3E9B8006C79A8 /* AI Tutor */;
+			target = C1ADCB012AF3E9B8006C79A8 /* MAGICAL Academy */;
 			targetProxy = C1ADCB242AF3E9BA006C79A8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -511,6 +511,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AI Tutor/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "MAGICAL Academy";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -527,7 +528,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.AI-Tutor";
+				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.MAGICAL-Academy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -551,6 +552,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AI Tutor/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "MAGICAL Academy";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -567,7 +569,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.AI-Tutor";
+				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.MAGICAL-Academy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -584,18 +586,19 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9CXLL5AG24;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.AI-TutorTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.MAGICAL-AcademyTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AI Tutor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AI Tutor";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MAGICAL Academy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MAGICAL Academy";
 			};
 			name = Debug;
 		};
@@ -606,18 +609,19 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9CXLL5AG24;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.AI-TutorTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.MAGICAL-AcademyTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AI Tutor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AI Tutor";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MAGICAL Academy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MAGICAL Academy";
 			};
 			name = Release;
 		};
@@ -627,11 +631,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9CXLL5AG24;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.AI-TutorUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.MAGICAL-AcademyUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -648,11 +653,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9CXLL5AG24;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.AI-TutorUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "arashparnia.MAGICAL-AcademyUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -666,7 +672,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C1ADCAFD2AF3E9B8006C79A8 /* Build configuration list for PBXProject "AI Tutor" */ = {
+		C1ADCAFD2AF3E9B8006C79A8 /* Build configuration list for PBXProject "MAGICAL Academy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1ADCB2B2AF3E9BA006C79A8 /* Debug */,
@@ -675,7 +681,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1ADCB2D2AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "AI Tutor" */ = {
+		C1ADCB2D2AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "MAGICAL Academy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1ADCB2E2AF3E9BA006C79A8 /* Debug */,
@@ -684,7 +690,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1ADCB302AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "AI TutorTests" */ = {
+		C1ADCB302AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "MAGICAL AcademyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1ADCB312AF3E9BA006C79A8 /* Debug */,
@@ -693,7 +699,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C1ADCB332AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "AI TutorUITests" */ = {
+		C1ADCB332AF3E9BA006C79A8 /* Build configuration list for PBXNativeTarget "MAGICAL AcademyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C1ADCB342AF3E9BA006C79A8 /* Debug */,
@@ -724,13 +730,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		C1ADCB092AF3E9B8006C79A8 /* AI_Tutor.xcdatamodeld */ = {
+		C1ADCB092AF3E9B8006C79A8 /* MAGICAL Academy.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				C1ADCB0A2AF3E9B8006C79A8 /* AI_Tutor.xcdatamodel */,
 			);
 			currentVersion = C1ADCB0A2AF3E9B8006C79A8 /* AI_Tutor.xcdatamodel */;
-			path = AI_Tutor.xcdatamodeld;
+			path = "MAGICAL Academy.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
