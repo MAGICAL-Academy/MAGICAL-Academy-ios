@@ -21,7 +21,13 @@ struct MainView: View {
             case 2:
                 // Now showing StoryGenerationView instead of GeneratedImageView
                 if let scenario = selectedScenario, let character = selectedCharacter {
-                    StoryGenerationView(selectedScenario: scenario, selectedCharacter: character)
+                    NavigationView {
+                        StoryGenerationView(selectedScenario: scenario, selectedCharacter: character)
+                            .navigationBarItems(trailing: Button("Start Over") {
+                                // Reset selections and go back to stage 0
+                                resetSelections()
+                            })
+                    }
                 } else {
                     // Handle the case where scenario, character, or attire is not selected
                     Text("Please go back and make all selections.")
@@ -37,9 +43,13 @@ struct MainView: View {
             selectedStage += 1
         }
     }
+
+    private func resetSelections() {
+        selectedScenario = nil
+        selectedCharacter = nil
+        selectedStage = 0
+    }
 }
-
-
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {

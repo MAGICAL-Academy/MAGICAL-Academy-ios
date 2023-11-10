@@ -344,79 +344,74 @@ deinit {
             }
         }
     }
-    private func fetchMessagesForThread(threadId: String, completion: @escaping (Result<[String], Error>) -> Void) {
+    // Function to fetch messages for a thread
+    func fetchMessagesForThread(threadId: String, completion: @escaping (Result<[String: String], Error>) -> Void) {
         logger.log("Starting to fetch messages for thread ID: \(threadId)")
-        
+
         let url = URL(string: "https://api.openai.com/v1/threads/\(threadId)/messages")!
         logger.log("Constructed URL for fetching messages: \(url.absoluteString)")
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("assistants=v1", forHTTPHeaderField: "OpenAI-Beta")
-        
+
         logger.log("Set up request headers for message fetching")
-        
+
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 self.logger.log("Fetch messages encountered an error: \(error.localizedDescription)")
                 completion(.failure(error))
                 return
             }
-            
+
             if let httpResponse = response as? HTTPURLResponse {
                 self.logger.log("Received HTTP response status code: \(httpResponse.statusCode)")
             } else {
                 self.logger.log("Failed to cast response to HTTPURLResponse")
             }
-            
-            if let data = data {
-                self.logger.log("Received data of size: \(data.count) bytes")
-            } else {
-                self.logger.log("No data received in response")
-            }
-            
+
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 self.logger.log("Bad server response when fetching messages")
                 completion(.failure(URLError(.badServerResponse)))
                 return
             }
-            
-            guard let data = data else {
-                self.logger.log("Data object is nil when fetching messages")
-                completion(.failure(URLError(.cannotParseResponse)))
-                return
-            }
-            
-            do {
-                let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-                self.logger.log("Serialized response data to JSON")
-                if let jsonObject = jsonObject as? [String: Any], let messages = jsonObject["data"] as? [[String: Any]] {
-                    let contentList = messages.compactMap { messageDict -> String? in
-                        if let contentArray = messageDict["content"] as? [[String: Any]],
-                           let textDict = contentArray.first,
-                           let textValue = textDict["text"] as? [String: Any],
-                           let value = textValue["value"] as? String {
-                            return value
+
+            if let data = data {
+                self.logger.log("Received data of size: \(data.count)")
+                self.logger.log("HTTP Response Data: \(String(data: data, encoding: .utf8) ?? "Unable to decode data")") // Log the response data
+
+                do {
+                    let messageResponse = try JSONDecoder().decode(MessageResponse.self, from: data)
+                    let messages = messageResponse.data
+                    var messageDictionary = [String: String]()
+
+                    for message in messages {
+                        if let content = message.content.last?.text.value {
+                            let role = message.role
+                            messageDictionary[role] = content
                         }
-                        return nil
                     }
-                    self.logger.log("Successfully parsed messages with count: \(contentList.count)")
-                    completion(.success(contentList))
-                } else {
-                    self.logger.log("Failed to cast JSON to expected dictionary type or 'data' key not found")
-                    completion(.failure(URLError(.cannotParseResponse)))
+
+                    self.logger.log("Successfully parsed messages with count: \(messageDictionary.count)")
+                    completion(.success(messageDictionary))
+                } catch {
+                    self.logger.log("Failed to decode JSON response: \(error.localizedDescription)")
+                    completion(.failure(error))
                 }
-            } catch {
-                self.logger.log("Failed to serialize response data to JSON with error: \(error.localizedDescription)")
-                completion(.failure(error))
+            } else {
+                self.logger.log("No data received in response")
+                completion(.failure(URLError(.cannotParseResponse)))
             }
         }
-        
+
         logger.log("Resuming data task to fetch messages")
         task.resume()
     }
+
+
+
     
     
     private func executeRun(threadId: String, completion: @escaping (Result<String, Error>) -> Void) {

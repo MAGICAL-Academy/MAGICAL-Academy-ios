@@ -69,7 +69,34 @@ class AssistantGenerator {
         }
     }
 
+    // Function to fetch the latest message for a thread
+    func getLatestAssistantMessage(threadId: String, completion: @escaping (Result<String, Error>) -> Void) {
+        // Assuming you have a method in your chatGPTService to fetch messages for a thread
+        chatGPTService.fetchMessagesForThread(threadId: threadId) { result in
+            switch result {
+            case .success(let messages):
+                // Successfully fetched messages, parse them into Message objects
+                if let assistantMessage = messages["assistant"] {
+                    completion(.success(assistantMessage))
+                } else {
+                    // No messages from the assistant found
+                    completion(.failure(NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil)))
+                }
+                
+            case .failure(let error):
+                // Handle the error if fetching messages fails
+                completion(.failure(error))
+            }
+        }
+    }
 
+
+
+
+
+
+
+    
     
     func startTimer() {
         startTime = Date()
@@ -146,3 +173,4 @@ class AssistantGenerator {
         // If the answer is correct and the time taken is reasonable, no change in difficulty.
     }
 }
+
