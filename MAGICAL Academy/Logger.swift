@@ -13,7 +13,7 @@ enum LogLevel {
 }
 
 struct Logger {
-    var logLevel: LogLevel = .error
+    var logLevel: LogLevel = .debug
 
     func log(_ message: String, level: LogLevel = .debug) {
         if level == .debug && logLevel == .debug {

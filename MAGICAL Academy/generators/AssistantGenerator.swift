@@ -13,7 +13,7 @@ class AssistantGenerator {
     var age: Int
     private var startTime: Date?
     private var endTime: Date?
-    private let logger = OSLog(subsystem: "com.yourapp.AssistantService", category: "Debug")
+    private let logger = Logger()
     
     init(difficulty: Int = 1, age: Int = 4) {
         self.chatGPTService = AssistantService()
@@ -21,9 +21,41 @@ class AssistantGenerator {
         self.age = age
     }
     
-    private func log(_ message: String, type: OSLogType = .debug) {
-          os_log("%@", log: logger, type: type, message)
-      }
+ 
+    
+    func generateAndStoreThreadId(completion: @escaping (Result<String, Error>) -> Void) {
+        // Check if a thread ID already exists in UserDefaults
+        if let savedThreadId = UserDefaults.standard.string(forKey: "ThreadId") {
+            completion(.success(savedThreadId))
+        } else {
+            
+            // Create an instance of AssistantThreadManager
+            let assistantManager = AssistantThreadManager(apiKey: AssistantService.fetchAPIKey(), assistantId: "asst_T7HClKQYmKUNOJmxlKW79XWQ")
+
+            // Define the initial messages for the thread
+            let messages = [
+                [
+                    "role": "user",
+                    "content": """
+                        Create an arithmetic exercise suitable for a \(self.age)-year-old child.
+                        The difficulty level should start at \(self.difficulty).
+                        """
+                ]
+            ]
+
+            // Initialize the thread with messages
+            assistantManager.initializeThreadWithMessages(messages: messages) { result in
+                switch result {
+                case .success(let threadId):
+                    completion(.success(threadId)) // Pass the threadId to .success
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+
     
     func generateExercise(place: String, character: String, completion: @escaping (String, String) -> Void) {
         let messages = [
@@ -42,8 +74,7 @@ class AssistantGenerator {
                 switch result {
                 case .success(let (threadId, runId)):
                     completion(threadId, runId)
-                case .failure(let error):
-                    self.log("Failed to generate exercise: \(error)")
+                case .failure(_):
                     completion("", "")
                 }
             }
@@ -60,7 +91,6 @@ class AssistantGenerator {
         chatGPTService.fetchRunStatus(runId: runId, threadId: threadId) { status, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    self.log("Error checking status: \(error.localizedDescription)", type: .error)
                     completion("failed")
                 } else {
                     completion(status)

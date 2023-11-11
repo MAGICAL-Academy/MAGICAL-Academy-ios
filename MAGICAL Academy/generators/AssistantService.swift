@@ -21,7 +21,7 @@ class AssistantService {
         logger.log("AssistantService initialized.")
     }
     
-    private static func fetchAPIKey() -> String {
+    static func fetchAPIKey() -> String {
         guard let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
               let secrets = NSDictionary(contentsOfFile: path),
               let apiKey = secrets["CHAT_GPT_API_KEY"] as? String else {

@@ -4,7 +4,7 @@ struct MainView: View {
     @State private var selectedStage = 0
     @State private var selectedScenario: String?
     @State private var selectedCharacter: String?
-
+    
     var body: some View {
         VStack {
             switch selectedStage {
@@ -37,18 +37,21 @@ struct MainView: View {
             }
         }
     }
-
+    
     private func advanceStage() {
         withAnimation {
             selectedStage += 1
         }
     }
-
+    
     private func resetSelections() {
         selectedScenario = nil
         selectedCharacter = nil
         selectedStage = 0
     }
+    
+    
+    
 }
 
 struct MainView_Previews: PreviewProvider {
