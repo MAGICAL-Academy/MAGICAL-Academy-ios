@@ -33,7 +33,6 @@
 		C1ADCB282AF3E9BA006C79A8 /* MAGICAL_AcademyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB272AF3E9BA006C79A8 /* MAGICAL_AcademyUITests.swift */; };
 		C1ADCB2A2AF3E9BA006C79A8 /* MAGICAL_AcademyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ADCB292AF3E9BA006C79A8 /* MAGICAL_AcademyUITestsLaunchTests.swift */; };
 		C1E0F0622AFD28810017C565 /* MAGICAL_Academy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C1E0F0602AFD28810017C565 /* MAGICAL_Academy.xcdatamodeld */; };
-		C1E0F0642AFD2F4B0017C565 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E0F0632AFD2F4B0017C565 /* Secrets.plist */; };
 		C1FFD38B2AF87ED00020C3AB /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = C1FFD38A2AF87ED00020C3AB /* OpenAIKit */; };
 		C1FFD3922AF88A8A0020C3AB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FFD3912AF88A8A0020C3AB /* Security.framework */; };
 /* End PBXBuildFile section */
@@ -87,7 +86,6 @@
 		C1ADCB272AF3E9BA006C79A8 /* MAGICAL_AcademyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAGICAL_AcademyUITests.swift; sourceTree = "<group>"; };
 		C1ADCB292AF3E9BA006C79A8 /* MAGICAL_AcademyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAGICAL_AcademyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C1E0F0612AFD28810017C565 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		C1E0F0632AFD2F4B0017C565 /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		C1FFD3912AF88A8A0020C3AB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -183,7 +181,6 @@
 				C1ADCB052AF3E9B8006C79A8 /* MAGICAL_AcademyApp.swift */,
 				C1ADCB072AF3E9B8006C79A8 /* Persistence.swift */,
 				C1E0F0602AFD28810017C565 /* MAGICAL_Academy.xcdatamodeld */,
-				C1E0F0632AFD2F4B0017C565 /* Secrets.plist */,
 				C1ADCB0E2AF3E9BA006C79A8 /* Assets.xcassets */,
 				C1ADCB102AF3E9BA006C79A8 /* MAGICAL Academy.entitlements */,
 				C1ADCB142AF3E9BA006C79A8 /* Info.plist */,
@@ -341,7 +338,6 @@
 			files = (
 				C11F55562AFF173800CEFA55 /* Secrets.plist in Resources */,
 				C1ADCB132AF3E9BA006C79A8 /* Preview Assets.xcassets in Resources */,
-				C1E0F0642AFD2F4B0017C565 /* Secrets.plist in Resources */,
 				C1ADCB0F2AF3E9BA006C79A8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
