@@ -16,7 +16,6 @@ struct MAGICAL_Academy: App {
             MainView()
                 .onAppear {
                     logger.log("App onAppear called.", level: .debug)
-                    UserDefaults.standard.set(nil, forKey: "ThreadId")
                     // Check if a thread ID exists in UserDefaults
                     if let existingThreadId = UserDefaults.standard.string(forKey: "ThreadId") {
                         logger.log("Thread ID already exists: \(existingThreadId)", level: .debug)

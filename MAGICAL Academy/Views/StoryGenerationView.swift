@@ -1,13 +1,6 @@
-//
-//  StoryGenerationView.swift
-//  MAGICAL Academy
-//
-//  Created by arash parnia on 11/10/23.
-//
-
-
 import SwiftUI
 import Combine
+import AVFoundation // Import AVFoundation for audio playback
 
 struct StoryGenerationView: View {
     // Properties to hold the incoming arguments
@@ -28,6 +21,10 @@ struct StoryGenerationView: View {
     @State private var progress: Double = 0.0 // Progress value for the animation
     @State private var progressTimer: Timer? // Store the timer in @State
     @State private var latestMessage: String = "" // Define a property to store the latest message
+    @State private var audioPlayer: AVAudioPlayer? // Audio player instance
+    @State private var isReplayButtonVisible: Bool = false
+    @State private var imageURL: URL?
+   
 
     // Initialize the ExerciseGenerator with the API key
     private var assistantGenerator: AssistantGenerator
@@ -42,93 +39,119 @@ struct StoryGenerationView: View {
     }
 
     var body: some View {
-           VStack {
-               Text("Math Story Exercise")
-                   .font(.largeTitle)
-                   .foregroundColor(.rainbow) // Create a custom Color extension for rainbow colors
+        VStack {       
+            // Display the image above the text
+            if let imageURL = imageURL {
+                AsyncImage(url: imageURL) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 200, height: 200) // Adjust the size as needed
+                    case .failure:
+                        Text("Image load failed")
+                    @unknown default:
+                        Text("Unknown state")
+                    }
+                }
+            }           
+            Text("Math Story Exercise")
+                .font(.largeTitle)
+                .foregroundColor(.rainbow)
 
-               Text(storyPrompt)
-                   .font(.title)
-                   .bold()
-                   .padding()
-                   .multilineTextAlignment(.center)
-                   .foregroundColor(.blue) // Set the color as per your preference
+            Text(storyPrompt)
+                .font(.title)
+                .bold()
+                .padding()
+                .multilineTextAlignment(.center)
+                .foregroundColor(.blue)
 
-               // Displaying multiple choice options
-               ForEach(answerOptions, id: \.self) { option in
-                   Button(action: {
-                       checkAnswer(selectedOption: option)
-                   }) {
-                       HStack {
-                           Text(option)
-                               .font(.headline)
-                               .padding()
-                               .background(Color.green) // Set the background color
-                               .cornerRadius(10) // Add some corner radius
-                               .foregroundColor(.white) // Text color
-                           Spacer()
-                           // Use the option directly since it already contains an emoji
-                           Text(option)
-                               .font(.headline)
-                               .padding()
-                               .background(Color.purple) // Set the background color
-                               .cornerRadius(10) // Add some corner radius
-                               .foregroundColor(.white) // Text color
-                       }
-                   }
-                   .buttonStyle(.bordered)
-                   .padding(.horizontal)
-               }
+            ForEach(answerOptions, id: \.self) { option in
+                Button(action: {
+                    checkAnswer(selectedOption: option)
+                }) {
+                    HStack {
+                        Text(option)
+                            .font(.headline)
+                            .padding()
+                            .background(Color.green)
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text(option)
+                            .font(.headline)
+                            .padding()
+                            .background(Color.purple)
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                    }
+                }
+                .buttonStyle(.bordered)
+                .padding(.horizontal)
+            }
 
-               if isCheckingStatus {
-                   ProgressView("Checking status...", value: progress, total: 1.0)
-                       .progressViewStyle(LinearProgressViewStyle())
-                       .onAppear {
-                           startProgressTimer()
-                       }
-                       .onDisappear {
-                           stopProgressTimer()
-                       }
-               }
+            if isCheckingStatus {
+                ProgressView("Checking status...", value: progress, total: 1.0)
+                    .progressViewStyle(LinearProgressViewStyle())
+                    .onAppear {
+                        startProgressTimer()
+                    }
+                    .onDisappear {
+                        stopProgressTimer()
+                    }
+            }
 
-               Text(latestMessage)
-                   .font(.system(size: 24)) // Large font size
-                   .foregroundColor(.rainbow) // Rainbow colors
-                   .multilineTextAlignment(.center)
-                   .padding()
-                   .background(
-                       RoundedRectangle(cornerRadius: 20)
-                           .foregroundColor(.yellow) // Set background color
-                   )
+            Text(latestMessage)
+                .font(.system(size: 24))
+                .foregroundColor(.rainbow)
+                .multilineTextAlignment(.center)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .foregroundColor(.yellow)
+                )
 
-               Spacer()
-           }
-           .onAppear {
-               fetchNewStoryPrompt()
-           }
-           .onReceive(checkStatusTimer) { _ in
-               checkAssistantStatus()
-           }
-           .alert(isPresented: .constant(isAnswerCorrect != nil), content: {
-               if isAnswerCorrect == true {
-                   return Alert(title: Text("Correct!"), message: Text("Great job!"), dismissButton: .default(Text("Next"), action: fetchNewStoryPrompt))
-               } else {
-                   return Alert(title: Text("Oops!"), message: Text("Try again."), dismissButton: .default(Text("OK")))
-               }
-           })
-           .onDisappear {
-               // Cancel the timer when the view disappears
-               cancellables.forEach { $0.cancel() }
-           }
-       }
-    
- 
+            if isReplayButtonVisible {
+                Button(action: {
+                    if let audioPlayer = audioPlayer {
+                        audioPlayer.play()
+                    }
+                }) {
+                    Text("Replay")
+                        .font(.headline)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                }
+            }
+
+            Spacer()
+        }
+        .onAppear {
+            generateExercise()
+        }
+        .onReceive(checkStatusTimer) { _ in
+            checkAssistantStatus()
+        }
+        .alert(isPresented: .constant(isAnswerCorrect != nil)) {
+            if isAnswerCorrect == true {
+                return Alert(title: Text("Correct!"), message: Text("Great job!"), dismissButton: .default(Text("Next"), action: generateExercise))
+            } else {
+                return Alert(title: Text("Oops!"), message: Text("Try again."), dismissButton: .default(Text("OK")))
+            }
+        }
+        .onDisappear {
+            cancellables.forEach { $0.cancel() }
+        }
+    }
 
     private func startProgressTimer() {
         progressTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            if self.progress < 1.0 {
-                self.progress += 0.005 // Adjust the step size as needed for the desired animation speed
-            }
+            self.progress = min(1.0, self.progress + 0.005)
         }
     }
 
@@ -149,27 +172,23 @@ struct StoryGenerationView: View {
         self.assistantGenerator.checkStatus(runId: currentRunId, threadId: currentThreadId) { status in
             DispatchQueue.main.async {
                 if status == "completed" {
-                    // Update progress to 1.0 when the task is completed
                     self.progress = 1.0
 
-                    // Fetch messages for the thread
                     self.assistantGenerator.getLatestAssistantMessage(threadId: currentThreadId) { result in
                         switch result {
                         case .success(let messages):
-                            // Update your UI with the latest message
-                            self.latestMessage = String(messages)
+                            DispatchQueue.main.async {
+                                self.latestMessage = String(messages)
+                                self.playAudioFromText(messages)
+                            }
                         case .failure(let error):
-                            // Handle the error if fetching messages fails
                             print("Error fetching messages: \(error)")
                         }
                     }
 
-                    // Update your UI with the new data
-                    // ...
-
                     isCheckingStatus = false
                     self.cancellables.forEach { $0.cancel() }
-                    self.checkStatusTimer.upstream.connect().cancel() // Stop the timer
+                    self.checkStatusTimer.upstream.connect().cancel()
                 } else if status == "failed" {
                     // Handle a failed status
                     // ...
@@ -178,73 +197,97 @@ struct StoryGenerationView: View {
         }
     }
 
-    // Function to check the user's answer
     private func checkAnswer(selectedOption: String) {
-        // Extract the numeric part from the selected option, ignoring any emoji or non-numeric characters.
         guard let selectedAnswer = Int(selectedOption.filter("0123456789".contains)),
               let correctNumber = correctAnswer else { return }
 
-        // Start the timer when the user selects an answer (if not already started when the question is presented).
         assistantGenerator.startTimer()
 
-        // Evaluate the performance and get a Boolean result indicating if the answer was correct.
         isAnswerCorrect = assistantGenerator.evaluatePerformance(userAnswer: selectedAnswer, correctAnswer: correctNumber)
 
-        // Update the difficulty level based on the evaluation of the user's performance.
         difficulty = assistantGenerator.difficulty
 
-        // Stop the timer after the performance evaluation.
         assistantGenerator.stopTimer()
     }
 
-    // Function to fetch a new story prompt
-    private func fetchNewStoryPrompt() {
-        // Use the ExerciseGenerator to generate the exercise
+    private func generateExercise() {
         assistantGenerator.generateExercise(place: selectedScenario, character: selectedCharacter) { threadId, runId in
             DispatchQueue.main.async {
-                // Store the threadId and runId
                 self.threadId = threadId
                 self.runId = runId
             }
         }
     }
-
-    // Function to generate multiple choice answers with emojis
-    // ...
-
-    // Generate multiple choice answers with emojis
-    //    private func generateAnswerOptions() {
-    //        // Fetch the correct answer
-    //        assistantGenerator.getSolution(for: storyPrompt) { solution in
-    //            DispatchQueue.main.async {
-    //                self.correctAnswer = solution
-    //
-    //                // Generate answer options with emojis
-    //                if let correct = solution {
-    //                    self.answerOptions = self.generateEmojiOptions(for: correct)
-    //                }
-    //            }
-    //        }
-    //    }
-
-    private func generateEmojiOptions(for answer: Int) -> [String] {
-        // Define a base emoji to use for all answers.
-        let baseEmoji = "🍎" // You can modify this to change the emoji used.
-
-        // Create a set of options, including the correct one.
-        var options: Set<String> = ["\(answer) \(baseEmoji)"]
-        while options.count < 4 {
-            // Generate a random number to create additional options.
-            let randomNum = Int.random(in: 1...10)
-            // Avoid adding the correct answer as an option again.
-            if randomNum != answer {
-                options.insert("\(randomNum) \(baseEmoji)")
+    
+    private func playAudioFromText(_ text: String) {
+        self.assistantGenerator.generateSpeechFromText(text: text)  { result in
+            switch result {
+            case .success(let audioData):
+                // Call the playAudio function with the audio data
+                
+                self.playAudio(data: audioData)
+            case .failure(let error):
+                print("Error generating speech: \(error)")
             }
         }
-
-        return Array(options).shuffled()
     }
+    private func playAudio(data: Data) {
+        do {
+            // Initialize the audio player with the ACC audio data
+            audioPlayer = try AVAudioPlayer(data: data)
+
+            // Play the audio
+            audioPlayer?.play()
+        } catch {
+            print("Error playing audio: \(error)")
+        }
+    }
+    // Function to generate the image and update the imageURL
+      func generateImage() {
+          // Call your generateImageFromText function here with the text
+          // Update the imageURL in the completion handler
+          self.assistantGenerator.generateImageFromText(text: self.latestMessage) { result in
+              switch result {
+              case .success(let imageUrls):
+                  if let imageUrl = imageUrls.first {
+                      self.imageURL = URL(string: imageUrl)
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print("====================================================")
+                      print(self.imageURL)
+                  }
+              case .failure(let error):
+                  print("Image generation failed: \(error)")
+              }
+          }
+      }
 }
+
+
+
 
 struct StoryGenerationView_Previews: PreviewProvider {
     static var previews: some View {
@@ -257,3 +300,4 @@ extension Color {
         return Color(.sRGB, red: Double.random(in: 0...1), green: Double.random(in: 0...1), blue: Double.random(in: 0...1))
     }
 }
+

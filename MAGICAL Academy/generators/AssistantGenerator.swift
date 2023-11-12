@@ -6,9 +6,10 @@
 //
 import os.log
 import Foundation
+import AVFoundation
 
 class AssistantGenerator {
-    var chatGPTService: AssistantService
+    var chatGPTService: ChatGPTService
     var difficulty: Int
     var age: Int
     private var startTime: Date?
@@ -16,7 +17,7 @@ class AssistantGenerator {
     private let logger = Logger()
     
     init(difficulty: Int = 1, age: Int = 4) {
-        self.chatGPTService = AssistantService()
+        self.chatGPTService = ChatGPTService()
         self.difficulty = difficulty
         self.age = age
     }
@@ -29,8 +30,6 @@ class AssistantGenerator {
             completion(.success(savedThreadId))
         } else {
             
-            // Create an instance of AssistantThreadManager
-            let assistantManager = AssistantThreadManager(apiKey: AssistantService.fetchAPIKey(), assistantId: "asst_T7HClKQYmKUNOJmxlKW79XWQ")
 
             // Define the initial messages for the thread
             let messages = [
@@ -44,7 +43,7 @@ class AssistantGenerator {
             ]
 
             // Initialize the thread with messages
-            assistantManager.initializeThreadWithMessages(messages: messages) { result in
+            chatGPTService.initializeThreadWithMessages(messages: messages) { result in
                 switch result {
                 case .success(let threadId):
                     completion(.success(threadId)) // Pass the threadId to .success
@@ -58,26 +57,38 @@ class AssistantGenerator {
 
     
     func generateExercise(place: String, character: String, completion: @escaping (String, String) -> Void) {
-        let messages = [
-            [
-                "role": "user",
-                "content": """
-                    Create an arithmetic exercise suitable for a \(self.age)-year-old child.
-                    Use the setting of '\(place)' and include a character who is a '\(character)'.
-                    The difficulty level is \(self.difficulty). Provide the exercise and wait for a response to give the answer.
-                    """
-            ]
+        let message = [
+            "role": "user",
+            "content": """
+                Create an arithmetic exercise suitable for a \(self.age)-year-old child.
+                Use the setting of '\(place)' and include a character who is a '\(character)'.
+                The difficulty level is \(self.difficulty). Provide the exercise and wait for a response to give the answer.
+                """
         ]
 
-        chatGPTService.runAssistant(with: messages) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let (threadId, runId)):
-                    completion(threadId, runId)
+        // Retrieve the existing ThreadId from UserDefaults
+        if let threadId = UserDefaults.standard.string(forKey: "ThreadId") {
+            // Add the new message to the existing thread
+            self.chatGPTService.addMessagesToThread(threadId: threadId, messages: [message]) { addMessagesResult in
+                switch addMessagesResult {
+                case .success:
+                    // Execute the run for the existing thread
+                    self.chatGPTService.executeRun(threadId: threadId) { createRunResult in
+                        switch createRunResult {
+                        case .success(let runId):
+                            // Return the threadId and runId
+                            completion(threadId, runId)
+                        case .failure(_):
+                            completion("", "")
+                        }
+                    }
                 case .failure(_):
                     completion("", "")
                 }
             }
+        } else {
+            // Handle the case where the ThreadId is not found in UserDefaults
+            completion("", "")
         }
     }
 
@@ -202,5 +213,36 @@ class AssistantGenerator {
         }
         // If the answer is correct and the time taken is reasonable, no change in difficulty.
     }
+    
+  
+
+   
+     func generateSpeechFromText(text: String, completion: @escaping (Result<Data, Error>) -> Void) {
+         // Call the original function to generate speech
+         self.chatGPTService.generateSpeechFromText(text: text) { result in
+             switch result {
+             case .success(let data):
+                 // Handle success
+                 completion(.success(data))
+             case .failure(let error):
+                 // Handle failure
+                 completion(.failure(error))
+             }
+         }
+     }
+    
+    func generateImageFromText(text: String, completion: @escaping (Result<[String], Error>) -> Void) {
+        self.chatGPTService.generateImages(prompt: text) { result in
+            switch result {
+            case .success(let imageUrls):
+                // Handle success by returning the image URLs
+                completion(.success(imageUrls))
+            case .failure(let error):
+                // Handle failure
+                completion(.failure(error))
+            }
+        }
+    }
+
 }
 
