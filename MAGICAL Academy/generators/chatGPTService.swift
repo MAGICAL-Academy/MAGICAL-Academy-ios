@@ -130,7 +130,7 @@ class ChatGPTService {
     }
 
     func checkRunStatus(runId: String, threadId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        let statusCheckInterval: TimeInterval = 5.0
+        let statusCheckInterval: TimeInterval = 10.0
 
         self.logger.log("checkRunStatus for Thread \(threadId).", level: .debug)
 
@@ -198,11 +198,11 @@ class ChatGPTService {
                 return
             }
           
-            // Print the raw server response
-            if let rawResponseString = String(data: data, encoding: .utf8) {
-                self.logger.log("Raw server response: \(rawResponseString)", level: .debug)
-            }
-           
+//            // Print the raw server response
+//            if let rawResponseString = String(data: data, encoding: .utf8) {
+//                self.logger.log("Raw server response: \(rawResponseString)", level: .debug)
+//            }
+//           
             do {
                 if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     self.logger.log("Received JSON response: \(jsonResponse)", level: .debug)
@@ -337,8 +337,8 @@ class ChatGPTService {
               
         }
     }
-    // Function to fetch messages for a thread
-    func fetchMessagesForThread(threadId: String, completion: @escaping (Result<[String: String], Error>) -> Void) {
+    // Function to fetch messages for a thread and return the latest message as a dictionary
+    func fetchLatestMessageForThread(threadId: String, completion: @escaping (Result<String, Error>) -> Void) {
         logger.log("Starting to fetch messages for thread ID: \(threadId)")
 
         let url = URL(string: "https://api.openai.com/v1/threads/\(threadId)/messages")!
@@ -352,7 +352,7 @@ class ChatGPTService {
 
         logger.log("Set up request headers for message fetching")
 
-        let task = session.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { (data, response, error) in // Add type annotation for closure parameter
             if let error = error {
                 self.logger.log("Fetch messages encountered an error: \(error.localizedDescription)")
                 completion(.failure(error))
@@ -376,19 +376,23 @@ class ChatGPTService {
                 self.logger.log("HTTP Response Data: \(String(data: data, encoding: .utf8) ?? "Unable to decode data")") // Log the response data
 
                 do {
-                    let messageResponse = try JSONDecoder().decode(MessageResponse.self, from: data)
-                    let messages = messageResponse.data
-                    var messageDictionary = [String: String]()
-
-                    for message in messages {
-                        if let content = message.content.first?.text.value {
-                            let role = message.role
-                            messageDictionary[role] = content
+                    let decodedData = try JSONDecoder().decode(MessageResponse.self, from: data)
+                    
+                    let sortedMessages = decodedData.data.sorted(by: { $0.createdAt > $1.createdAt }) // Explicitly specify the type of closure
+                    
+                    // Get the latest message as a dictionary
+                    if let latestMessage = sortedMessages.first {
+                        if let message = latestMessage.content.first?.text.value {
+                            self.logger.log("Latest message: \(message)")
+                            completion(.success(message))
+                        } else {
+                            self.logger.log("No message content found in the response")
+                            completion(.failure(NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil)))
                         }
+                    } else {
+                        self.logger.log("No messages found in the response")
+                        completion(.failure(NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil)))
                     }
-
-                    self.logger.log("Successfully parsed messages with count: \(messageDictionary.count)")
-                    completion(.success(messageDictionary))
                 } catch {
                     self.logger.log("Failed to decode JSON response: \(error.localizedDescription)")
                     completion(.failure(error))
@@ -402,6 +406,8 @@ class ChatGPTService {
         logger.log("Resuming data task to fetch messages")
         task.resume()
     }
+
+
 
     func executeRun(threadId: String, completion: @escaping (Result<String, Error>) -> Void) {
         logger.log("Executing run for thread ID: \(threadId)")

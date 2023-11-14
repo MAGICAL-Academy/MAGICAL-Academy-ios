@@ -36,8 +36,7 @@ class AssistantGenerator {
                 [
                     "role": "user",
                     "content": """
-                        Create an arithmetic exercise suitable for a \(self.age)-year-old child.
-                        The difficulty level should start at \(self.difficulty).
+                        This will be read be read by the text to voice api and then played for the user. Do a short welcome message for the user.
                         """
                 ]
             ]
@@ -62,7 +61,7 @@ class AssistantGenerator {
             "content": """
                 Create an arithmetic exercise suitable for a \(self.age)-year-old child.
                 Use the setting of '\(place)' and include a character who is a '\(character)'.
-                The difficulty level is \(self.difficulty). Provide the exercise and wait for a response to give the answer.
+                The difficulty level is \(self.difficulty). Provide the exercise and the answer in json format.
                 """
         ]
 
@@ -110,26 +109,41 @@ class AssistantGenerator {
         }
     }
 
-    // Function to fetch the latest message for a thread
-    func getLatestAssistantMessage(threadId: String, completion: @escaping (Result<String, Error>) -> Void) {
-        // Assuming you have a method in your chatGPTService to fetch messages for a thread
-        chatGPTService.fetchMessagesForThread(threadId: threadId) { result in
-            switch result {
-            case .success(let messages):
-                // Successfully fetched messages, parse them into Message objects
-                if let assistantMessage = messages["assistant"] {
-                    completion(.success(assistantMessage))
+    func getExercise(threadId: String, completion: @escaping (Result<(exercise: String, result: Int), Error>) -> Void) {
+        // Check the status of the latest run for the thread
+        chatGPTService.getStatus(for: threadId) { statusResult in
+            switch statusResult {
+            case .success(let status):
+                if status == "completed" {
+                    // If the run is completed, fetch the latest message
+                    self.chatGPTService.fetchLatestMessageForThread(threadId: threadId) { messageResult in
+                        switch messageResult {
+                        case .success(let message):
+                            if let jsonData = message.data(using: .utf8),
+                               let jsonObject = try? JSONSerialization.jsonObject(with: jsonData, options: []),
+                               let jsonDict = jsonObject as? [String: Any],
+                               let exercise = jsonDict["exercise"] as? String,
+                               let answerStr = jsonDict["answer"] as? String,
+                               let answer = Int(answerStr) {
+                                completion(.success((exercise, answer)))
+                            } else {
+                                completion(.failure(NSError(domain: "YourAppErrorDomain", code: 0, userInfo: ["description": "Invalid format for 'messages' data"])))
+                            }
+                        case .failure(let error):
+                            completion(.failure(error))
+                        }
+                    }
                 } else {
-                    // No messages from the assistant found
-                    completion(.failure(NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil)))
+                    // If the run is not completed, handle accordingly
+                    completion(.failure(NSError(domain: "YourAppErrorDomain", code: 1, userInfo: ["description": "Run not completed"])))
                 }
-                
             case .failure(let error):
-                // Handle the error if fetching messages fails
+                // Handle the error if fetching run status fails
                 completion(.failure(error))
             }
         }
     }
+
 
 
 
