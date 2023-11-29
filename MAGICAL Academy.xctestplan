@@ -13,7 +13,7 @@
     "environmentVariableEntries" : [
       {
         "key" : "CHAT_GPT_API_KEY",
-        "value" : "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"
+        "value" : ""
       }
     ],
     "targetForVariableExpansion" : {
