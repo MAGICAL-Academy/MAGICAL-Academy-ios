@@ -1,6 +1,6 @@
 import SwiftUI
 import Combine
-import AVFoundation // Import AVFoundation for audio playback
+//import AVFoundation // Import AVFoundation for audio playback
 
 struct StoryGenerationView: View {
     // Properties to hold the incoming arguments
@@ -22,7 +22,7 @@ struct StoryGenerationView: View {
     @State private var progressTimer: Timer? // Store the timer in @State
     @State private var latestMessage: String = "" // Define a property to store the latest message
     @State private var latestAnswer: Int? = nil
-    @State private var audioPlayer: AVAudioPlayer? // Audio player instance
+//    @State private var audioPlayer: AVAudioPlayer? // Audio player instance
     @State private var isReplayButtonVisible: Bool = false
     @State private var imageURL: URL?
     @State private var isExerciseGenerated = false
@@ -118,9 +118,9 @@ struct StoryGenerationView: View {
 
             if isReplayButtonVisible {
                 Button(action: {
-                    if let audioPlayer = audioPlayer {
-                        audioPlayer.play()
-                    }
+//                    if let audioPlayer = audioPlayer {
+//                        audioPlayer.play()
+//                    }
                 }) {
                     Text("Replay")
                         .font(.headline)
@@ -166,10 +166,8 @@ struct StoryGenerationView: View {
     }
 
     private func checkAssistantStatus() {
-        guard let currentRunId = runId, let currentThreadId = threadId else {
-            print("Run ID or Thread ID is missing.")
-            return
-        }
+        _ = runId
+        let currentThreadId = threadId
 
         // Check if you have already received a result
         guard !isCheckingStatus else {
@@ -178,7 +176,7 @@ struct StoryGenerationView: View {
         }
 
         isCheckingStatus = true
-        self.assistantGenerator.getExercise(threadId: currentThreadId) { [self] result in
+        self.assistantGenerator.getExercise(threadId: currentThreadId!) { [self] result in
             switch result {
             case .success((let exercise, let result)):
                 // Update UI with the extracted values
@@ -225,29 +223,29 @@ struct StoryGenerationView: View {
            }
        }
     
-    private func playAudioFromText(_ text: String) {
-        self.assistantGenerator.generateSpeechFromText(text: text)  { result in
-            switch result {
-            case .success(let audioData):
-                // Call the playAudio function with the audio data
-                
-                self.playAudio(data: audioData)
-            case .failure(let error):
-                print("Error generating speech: \(error)")
-            }
-        }
-    }
-    private func playAudio(data: Data) {
-        do {
-            // Initialize the audio player with the ACC audio data
-            audioPlayer = try AVAudioPlayer(data: data)
-
-            // Play the audio
-            audioPlayer?.play()
-        } catch {
-            print("Error playing audio: \(error)")
-        }
-    }
+//    private func playAudioFromText(_ text: String) {
+//        self.assistantGenerator.generateSpeechFromText(text: text)  { result in
+//            switch result {
+//            case .success(let audioData):
+//                // Call the playAudio function with the audio data
+//                
+//                self.playAudio(data: audioData)
+//            case .failure(let error):
+//                print("Error generating speech: \(error)")
+//            }
+//        }
+//    }
+//    private func playAudio(data: Data) {
+//        do {
+//            // Initialize the audio player with the ACC audio data
+//            audioPlayer = try AVAudioPlayer(data: data)
+//
+//            // Play the audio
+//            audioPlayer?.play()
+//        } catch {
+//            print("Error playing audio: \(error)")
+//        }
+//    }
     // Function to generate the image and update the imageURL
       func generateImage() {
           // Call your generateImageFromText function here with the text
@@ -257,33 +255,7 @@ struct StoryGenerationView: View {
               case .success(let imageUrls):
                   if let imageUrl = imageUrls.first {
                       self.imageURL = URL(string: imageUrl)
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print("====================================================")
-                      print(self.imageURL)
+                 
                   }
               case .failure(let error):
                   print("Image generation failed: \(error)")

@@ -9,20 +9,22 @@ struct MainView: View {
         VStack {
             switch selectedStage {
             case 0:
+                StartView(selectedStage: $selectedStage)
+            case 1:
                 ScenarioSelectionView(selectedScenario: $selectedScenario) {
                     advanceStage()
                 }
                 .transition(.scale)
-            case 1:
+            case 2:
                 CharacterSelectionView(selectedCharacter: $selectedCharacter) {
                     advanceStage()
                 }
                 .transition(.scale)
-            case 2:
+            case 3:
                 // Now showing StoryGenerationView instead of GeneratedImageView
                 if let scenario = selectedScenario, let character = selectedCharacter {
                     NavigationView {
-                        StoryGenerationView(selectedScenario: scenario, selectedCharacter: character)
+                        ExcerciseView(selectedScenario: scenario, selectedCharacter: character)
                             .navigationBarItems(trailing: Button("Start Over") {
                                 // Reset selections and go back to stage 0
                                 resetSelections()

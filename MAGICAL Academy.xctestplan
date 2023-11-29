@@ -1,0 +1,39 @@
+{
+  "configurations" : [
+    {
+      "id" : "53D9AA5C-B5F2-4BE5-A475-F746577CB507",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "key" : "CHAT_GPT_API_KEY",
+        "value" : "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"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MAGICAL Academy.xcodeproj",
+      "identifier" : "C1ADCB012AF3E9B8006C79A8",
+      "name" : "MAGICAL Academy"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "MAGICAL_AcademyTests"
+      ],
+      "target" : {
+        "containerPath" : "container:MAGICAL Academy.xcodeproj",
+        "identifier" : "C1ADCB182AF3E9BA006C79A8",
+        "name" : "MAGICAL AcademyTests"
+      }
+    }
+  ],
+  "version" : 1
+}

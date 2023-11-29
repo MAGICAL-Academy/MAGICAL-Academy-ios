@@ -100,7 +100,7 @@ class AssistantGenerator {
         // Call the fetchRunStatus method on chatGPTService
         chatGPTService.fetchRunStatus(runId: runId, threadId: threadId) { status, error in
             DispatchQueue.main.async {
-                if let error = error {
+                if error != nil {
                     completion("failed")
                 } else {
                     completion(status)

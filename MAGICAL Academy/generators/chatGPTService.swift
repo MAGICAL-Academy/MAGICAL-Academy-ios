@@ -64,7 +64,9 @@ class ChatGPTService {
     }
 
     private func createThreadAndRun(with messages: [[String: String]]) -> Result<(String, String), Error> {
-        let url = URL(string: "https://api.openai.com/v1/threads/runs")!
+        guard let url = URL(string: "https://api.openai.com/v1/threads/runs") else {
+            return .failure(NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil))
+        }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -90,37 +92,46 @@ class ChatGPTService {
         let semaphore = DispatchSemaphore(value: 0)
         var threadId = ""
         var runId = ""
-
+        var responseError: Error?
+        print(responseError ??  "value")
         let task = session.dataTask(with: request) { data, response, error in
+            defer { semaphore.signal() } // Ensures semaphore is signaled in all cases
+
             if let error = error {
-                semaphore.signal()
+                responseError = error
+                
                 return
             }
-            self.logger.log("data for createThread \(String(describing: data))", level: .debug)
+
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                semaphore.signal()
+                responseError = NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil)
                 return
             }
+
             guard let data = data else {
-                semaphore.signal()
+                responseError = NSError(domain: "YourAppErrorDomain", code: 0, userInfo: nil)
                 return
             }
+
             do {
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-                if let jsonObject = jsonObject as? [String: Any], let id = jsonObject["id"] as? String {
+                if let jsonObject = jsonObject as? [String: Any],
+                   let id = jsonObject["id"] as? String {
                     threadId = jsonObject["thread_id"] as? String ?? ""
                     runId = id
                     self.logger.log("Thread created with threadId: \(threadId), runId: \(runId)", level: .debug)
                 }
             } catch {
-                semaphore.signal()
-                return
+                responseError = error
             }
-            semaphore.signal()
         }
 
         task.resume()
-        semaphore.wait()
+        semaphore.wait() // Wait for the task to complete
+
+        if let error = responseError {
+            return .failure(error)
+        }
 
         if !threadId.isEmpty && !runId.isEmpty {
             return .success((threadId, runId))
