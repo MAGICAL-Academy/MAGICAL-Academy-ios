@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10767F12B26B88F000E4125 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10767F02B26B88F000E4125 /* CardView.swift */; };
 		C11F55492AFD37B000CEFA55 /* AssistantGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F55482AFD37B000CEFA55 /* AssistantGenerator.swift */; };
 		C11F554D2AFE8DA200CEFA55 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F554C2AFE8DA200CEFA55 /* Logger.swift */; };
 		C11F55522AFEA58A00CEFA55 /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C11F55512AFEA58A00CEFA55 /* MessageResponse.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C10767F02B26B88F000E4125 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C11F55482AFD37B000CEFA55 /* AssistantGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantGenerator.swift; sourceTree = "<group>"; };
 		C11F554C2AFE8DA200CEFA55 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C11F55512AFEA58A00CEFA55 /* MessageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponse.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				C1C3146C2B0695E60003DF94 /* ExerciseCardView.swift */,
 				C1C3146E2B0699A40003DF94 /* StoryCardView.swift */,
 				C1C314702B06A06F0003DF94 /* ExerciseViewModel.swift */,
+				C10767F02B26B88F000E4125 /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				C19B58AF2AFB1FC400FFF0FA /* TextOverlayView.swift in Sources */,
 				C19B58B62AFB1FC400FFF0FA /* MainView.swift in Sources */,
 				C19B58B32AFB1FC400FFF0FA /* ScenarioSelectionView.swift in Sources */,
+				C10767F12B26B88F000E4125 /* CardView.swift in Sources */,
 				C11F554D2AFE8DA200CEFA55 /* Logger.swift in Sources */,
 				C1C3146B2B067C850003DF94 /* ExcerciseView.swift in Sources */,
 				C19B58B82AFB1FC400FFF0FA /* GenerateImageView.swift in Sources */,
