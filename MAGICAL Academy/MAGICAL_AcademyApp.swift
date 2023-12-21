@@ -6,16 +6,27 @@
 //
 import SwiftUI
 import AVFoundation
+import CoreData
+
 @main
 struct MAGICAL_Academy: App {
     let persistenceController = PersistenceController.shared
+    
+
     private let logger = Logger()
-//    init() {
-//            configureAudioSession()
-//        }
+    //    init() {
+    //            configureAudioSession()
+    //        }
     var body: some Scene {
         WindowGroup {
-            MainView()
+            
+            SearchDataContentView().environment(\.managedObjectContext, persistenceController.container.viewContext)
+                
+//            AddDataContentView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+    }
+}
 //                .onAppear {
 //                    logger.log("App onAppear called.", level: .debug)
 //                    // Check if a thread ID exists in UserDefaults
@@ -46,7 +57,7 @@ struct MAGICAL_Academy: App {
 //                }
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //        }
-    }
+    
 //    private func configureAudioSession() {
 //        do {
 //            try AVAudioSession.sharedInstance().setCategory(.playback)
@@ -54,5 +65,4 @@ struct MAGICAL_Academy: App {
 //        } catch {
 //            print("Failed to set audio session category. Error: \(error)")
 //        }
-    }
-}
+ 

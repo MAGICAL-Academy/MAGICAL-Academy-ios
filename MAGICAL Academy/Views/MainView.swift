@@ -9,7 +9,8 @@ struct MainView: View {
         VStack {
             switch selectedStage {
             case 0:
-                StartView(selectedStage: $selectedStage)
+                AddDataContentView()
+//                StartView(selectedStage: $selectedStage)
             case 1:
                 ScenarioSelectionView(selectedScenario: $selectedScenario) {
                     advanceStage()

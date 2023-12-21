@@ -1,10 +1,11 @@
 import SwiftUI
+import CoreData
 
-// DataItem struct remains the same
+// Assuming DataItem remains the same but will fetch from Core Data
 struct DataItem: Identifiable {
-    let id = UUID()
+    let id: UUID
     var item: String
-    var items: [String] // Each card's specific items
+    var items: [String]
     var content: AnyView
 }
 
@@ -48,21 +49,42 @@ struct CardView: View {
     }
 }
 
-// ContentView_ updates to manage selection status
+// ContentView_ modifications
 struct ContentView_: View {
-    let data: [DataItem] = [
-        DataItem(item: "Item 1", items: ["Subitem 1.1", "Subitem 1.2"], content: AnyView(Image("image1"))),
-        DataItem(item: "Item 2", items: ["Subitem 2.1", "Subitem 2.2"], content: AnyView(Text("This is a text content")))
-    ]
+    @Environment(\.managedObjectContext) var viewContext
+    @FetchRequest(
+        entity: CardEntity.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \CardEntity.name, ascending: true)]
+    ) var cards: FetchedResults<CardEntity>
 
-    @State private var selectionStates: [UUID: Bool]
+    @State private var selectionStates: [UUID: Bool] = [:]
 
-    init() {
-        var initialStates: [UUID: Bool] = [:]
-        for item in data {
-            initialStates[item.id] = false
-        }
-        _selectionStates = State(initialValue: initialStates)
+    private func convertToDataItem(cardEntity: CardEntity) -> DataItem {
+        let contentEntities = cardEntity.hasCardContent?.hasContent?.allObjects as? [ContentEntity] ?? []
+        let items = contentEntities.compactMap { $0.text } // Assuming text represents the items
+        let contentView = AnyView(VStack {
+            ForEach(contentEntities, id: \.id) { contentEntity in
+                switch contentEntity.type {
+                case "text":
+                    Text(contentEntity.text ?? "")
+                case "image":
+                    // Replace with actual image view
+                    Text("Image Placeholder")
+                case "audio":
+                    // Replace with actual audio view
+                    Text("Audio Placeholder")
+                default:
+                    EmptyView()
+                }
+            }
+        })
+
+        return DataItem(
+            id: cardEntity.id ?? UUID(),
+            item: cardEntity.name ?? "Unknown",
+            items: items,
+            content: contentView
+        )
     }
 
     private func bindingForSelectionState(of item: DataItem) -> Binding<Bool> {
@@ -75,18 +97,18 @@ struct ContentView_: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(spacing: 10) {
-                ForEach(data) { item in
-                    let index = data.firstIndex(where: { $0.id == item.id })!
-                    let isPreviousCardSelected = index == 0 || selectionStates[data[max(0, index - 1)].id, default: false]
-                    
-                    CardView(isPreviousCardSelected: .constant(isPreviousCardSelected), isSelected: bindingForSelectionState(of: item), items: item.items)
+                ForEach(cards, id: \.id) { cardEntity in
+                    let dataItem = convertToDataItem(cardEntity: cardEntity)
+                    let index = cards.firstIndex(where: { $0.id == cardEntity.id })!
+                    let isPreviousCardSelected = index == 0 || selectionStates[cards[max(0, index - 1)].id ?? UUID(), default: false]
+
+                    CardView(isPreviousCardSelected: .constant(isPreviousCardSelected), isSelected: bindingForSelectionState(of: dataItem), items: dataItem.items)
                 }
             }
         }
     }
 }
 
-// Previews
 struct ContentView__Previews: PreviewProvider {
     static var previews: some View {
         ContentView_()
